@@ -2,12 +2,15 @@ import tkinter as tk
 from tkinter import messagebox
 import sqlite3
 
-def save():
-    connection = sqlite3.connect("phoneBook.db")
-    cur = connection.cursor()
-    cur.execute("INSERT INTO contact(FirstName,LastName,PhoneNumber) VALUES(?,?)",(txtFirstName.get(),txtLastName.get(),txtPhoneNumber.get()))
-    connection.commit()
-    messagebox.showinfo("message","save successfuly")
+class Test:
+    def __init__(self,connection){
+        connection = sqlite3.connect("phoneBook.db")
+    }
+    def save(self):
+        cur = self.connection.cursor()
+        cur.execute("INSERT INTO contact(FirstName,LastName,PhoneNumber) VALUES(?,?,?)",(txtFirstName.get(),txtLastName.get(),txtPhoneNumber.get()))
+        connection.commit()
+        messagebox.showinfo("message","save successfuly")
     
 form = tk.Tk()
 lblFirstName = tk.Label(text="Firt Name")
@@ -16,7 +19,8 @@ lblPhoneNumber = tk.Label(text="Phone Number")
 txtFirstName = tk.Entry()
 txtLastName = tk.Entry()
 txtPhoneNumber = tk.Entry()
-btnsave = tk.Button(text="save contact", command=save)
+test=Test()
+btnsave = tk.Button(text="save contact", command=test.save())
 lblFirstName.place(x="100",y="50")
 lblLastName.place(x="100",y="70")
 lblPhoneNumber.place(x="100",y="90")
